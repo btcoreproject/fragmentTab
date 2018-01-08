@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -16,6 +17,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
+    BottomBar bottomBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-
         /**
          * 바텀바 초기화
          */
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         viewPager.setAdapter(new pagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);
@@ -62,6 +63,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                bottomBar.setDefaultTabPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
     }
